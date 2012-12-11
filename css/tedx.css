@@ -87,6 +87,9 @@ div#loggedin_user_action a, div#loggedin_user_action a:visited {
   float: left;
   color:#5396ff;
 }
+div.search-form {
+  margin: 0;
+}
 div.search-form input.text {
   border: 1px solid #e1e1e1;
   width: 300px;
@@ -207,6 +210,8 @@ div#mainmenu ul li a:hover, div#mainmenu a.active {
 	z-index:1000;
 	top: 90px;
 	color: #FFF;
+	left: 50%;
+	margin-left: -480px;
 }
 
 div#right { position:absolute; z-index:1000; display: none; }
@@ -236,7 +241,7 @@ div#right { position:absolute; z-index:1000; display: none; }
 }
 #the-filters {
 	top:49px;
-	left:59px;
+	left:37px;
 	width:300px;
 	display:none;
 	color: #FFF;
@@ -250,7 +255,7 @@ div#right { position:absolute; z-index:1000; display: none; }
 }
   
   /* type and category toggle button */
-  #filter-menu-toggle { position:absolute; top:20px; left:58px; width:120px; }
+  #filter-menu-toggle { position:absolute; top:20px; left:36px; width:120px; }
   
   /* home page category filter */
   #report-category-filter { padding:5px; float:left; width:200px; }
@@ -292,13 +297,13 @@ div#right { position:absolute; z-index:1000; display: none; }
   /*toggle buttons */
   #layers-menu-toggle { position:absolute; top:20px; left:220px; width:60px; }
   #other-deployments-menu-toggle { position:absolute; top:20px; left:322px; width:130px; }
-  #how-to-report-menu-toggle { position:absolute; top:20px; left:780px; width:100px; }
+  #how-to-report-menu-toggle { position:absolute; top:20px; left:794px; width:100px; }
   
   #kml_switch,
   #sharing_switch,
   #how-to-report-box { display:none; position:absolute; top:49px; padding:5px; left:220px; background:#FFF; width:175px;}
   #sharing_switch { left:322px; }
-  #how-to-report-box { left:724px; padding-top:10px;
+  #how-to-report-box { left:737px; padding-top:10px;
 		background: -moz-linear-gradient(bottom , #454545 68%, #5E5E5E 100%) repeat scroll 0 0 #454545;
 		background: -webkit-linear-gradient(bottom , #454545 68%, #5E5E5E 100%) repeat scroll 0 0 #454545;
     border: 1px solid #313436;

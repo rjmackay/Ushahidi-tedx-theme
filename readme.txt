@@ -5,7 +5,8 @@ Demo: http://www.ushahidi.com
 Version: 1.0
 Author: Robbie Mackay
 Author Email: robbie@ushahidi.com
-
+CSS: tedx,openlayers
+JS: 
 
 ===CHANGELOG===
 
