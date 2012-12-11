@@ -18,10 +18,6 @@ class tedx_reports_block {
 		$content = new View('blocks/tedx_recent_reports');
 		
 		// Get Reports
-        // XXX: Might need to replace magic no. 8 with a constant
-		$content->total_items = ORM::factory('incident')
-			->where('incident_active', '1')
-			->limit('8')->count_all();
 		$incidents = ORM::factory('incident')
 			->where('incident_active', '1')
 			->limit('10')
@@ -41,13 +37,15 @@ class tedx_reports_block {
 				{
 					$incident_video[$incident->id][] = array(
 						'link' => $media->media_link,
-						'thumb' => $media->media_thumb
+						'medium' => url::convert_uploaded_to_abs($media->media_medium),
+						'thumb' => url::convert_uploaded_to_abs($media->media_thumb)
 					);
 				}
 				elseif ($media->media_type == 1)
 				{
 					$incident_photo[$incident->id][] = array(
 						'large' => url::convert_uploaded_to_abs($media->media_link),
+						'medium' => url::convert_uploaded_to_abs($media->media_medium),
 						'thumb' => url::convert_uploaded_to_abs($media->media_thumb)
 					);
 				}
@@ -59,6 +57,7 @@ class tedx_reports_block {
 		$content->incident_photos = $incident_photo;
 
 		$content->incidents = $incidents;
+		$content->total_items = count($incidents);
 
 		// Create object of the video embed class
 		$content->video_embed = new VideoEmbed();
