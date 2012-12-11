@@ -19,8 +19,6 @@ class tedx {
 	 */
 	public function __construct()
 	{
-		$this->ted_id = "";
-		
 		// Hook into routing
 		Event::add('system.pre_controller', array($this, 'add'));
 	}
@@ -35,21 +33,21 @@ class tedx {
 		{
 			switch (Router::$method)
 			{
-				// Hook into the Report Add/Edit Form in Admin
 				case 'index':
-					// Hook in after the controller to modify template vars
-					Event::add('ushahidi_filter.main_content', array($this, '_post_main'));
+					Event::add('ushahidi_action.themes_add_requirements_pre_theme', array($this, 'add_js'));
 			}
 		}
 	}
 	
-	/**
-	 * Modify main template vars
-	 */
-	public function _post_main()
+	public function add_js()
 	{
-		Event::$data->site_tagline = Kohana::config('settings.site_tagline');
-		//var_dump(Event::$data); exit();
+		$themes = Event::$data;
+		
+		if ($themes->map_enabled)
+		{
+			// Add ushahidi.js extensions
+			Requirements::js('themes/tedx/js/ushahidi.tedx.js');
+		}
 	}
 	
 }

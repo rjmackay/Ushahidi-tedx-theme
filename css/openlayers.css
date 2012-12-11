@@ -2,6 +2,7 @@
 	background: #000;
 	margin: 0;
 	padding: 0;
+	border: 1px solid rgba(255, 255, 255, 0.05);
 	color: #fff;
 	text-transform: uppercase;
 }
@@ -9,12 +10,19 @@
 	float: none;
 	margin: 0;
 }
+.infowindow .infowindow_image img {
+	border: none;
+}
 .infowindow a, .infowindow a:visited {
 	color: #fff;
+}
+.infowindow a:hover {
+	text-decoration: none;
 }
 .infowindow .infowindow_content {
 	padding: 5px;
 	width: 230px;
+	float: none;
 }
 .infowindow .next {
 	position: absolute;
@@ -36,14 +44,6 @@
 	line-height: 40px;
 	text-align: left;
 }
-.infowindow {
-	margin: 0px 0 0 0;
-	border: 1px solid rgba(255, 255, 255, 0.05);
-}
-.infowindow .infowindow_content {
-	width: auto;
-	float: none;
-}
 .infowindow .infowindow_list {
 	margin-bottom: 0;
 	font-size: 11px;
@@ -52,24 +52,11 @@
 	padding-right: 2px;
 	padding-left: 2px;
 }
-.infowindow .infowindow_image {
-	float: none;
-	margin-right: 0;
-}
-.infowindow .infowindow_image img {
-	border: none;
-}
 .infowindow ul {
 	color: #FFF;
 }
-.infowindow a, .infowindow a:visited {
-	color: inherit;
-}
-.infowindow a:hover {
-	text-decoration: none;
-}
 .infowindow_meta a, .infowindow_meta a:visited {
-	color: #inherit;
+	color: inherit;
 }
 .olPopupContent {
 	padding: 0px;
