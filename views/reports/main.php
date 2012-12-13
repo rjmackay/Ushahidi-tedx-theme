@@ -3,9 +3,7 @@
 		<!-- start reports block -->
 		<div class="big-block">
 			<h1 class="heading">
-				<?php $timeframe_title = date('M d, Y', $oldest_timestamp).' '.Kohana::lang('ui_main.through').' '.date('M d, Y', $latest_timestamp); ?>
-				<?php echo Kohana::lang('ui_main.showing_reports_from'); ?> 
-				<span class="time-period"><?php echo $timeframe_title; ?></span> 
+				<?php echo Kohana::lang('ui_main.showing_reports_from', array(date('M d, Y', $oldest_timestamp), date('M d, Y', $latest_timestamp))); ?> 
 				<a href="#" class="btn-change-time ic-time"><?php echo Kohana::lang('ui_main.change_date_range'); ?></a>
 			</h1>
 			
@@ -35,25 +33,25 @@
 				</ul>
 				
 				<p class="labeled-divider"><span><?php echo Kohana::lang('ui_main.choose_date_range'); ?>:</span></p>
-				<form>
-					<table>
+				<?php echo form::open(NULL, array('method' => 'get')); ?>
+					<table class="report-date-filter">
 						<tr>
 							<td><strong>
-								<?php echo Kohana::lang('ui_admin.from')?>:</strong><input id="report_date_from" type="text" style="width:78px" />
+								<?php echo Kohana::lang('ui_admin.from')?>:</strong><input id="report_date_from" type="text" />
 							</td>
 							<td>
 								<strong><?php echo ucfirst(strtolower(Kohana::lang('ui_admin.to'))); ?>:</strong>
-								<input id="report_date_to" type="text" style="width:78px" />
+								<input id="report_date_to" type="text" />
 							</td>
 							<td valign="bottom">
-								<a href="#" id="applyDateFilter" class="filter-button" style="position:static;"><?php echo Kohana::lang('ui_main.go')?></a>
+								<a href="#" id="applyDateFilter" class="filter-button"><?php echo Kohana::lang('ui_main.go')?></a>
 							</td>
 						</tr>
-					</table>              
-				</form>
+					</table>
+				<?php echo form::close(); ?>
 			</div>
 
-			<div style="overflow:auto;">
+			<div class="reports-content">
 				<!-- reports-box -->
 				<div id="reports-box">
 					<?php echo $report_listing_view; ?>
@@ -71,8 +69,14 @@
 						<div class="f-category-box">
 							<ul class="filter-list fl-categories" id="category-filter-list">
 								<li>
-									<a href="#">
-									<span class="item-swatch" style="background-color: #<?php echo Kohana::config('settings.default_map_all'); ?>">&nbsp;</span>
+									<a href="#"><?php
+									$all_cat_image = '&nbsp';
+									$all_cat_image = '';
+									if($default_map_all_icon != NULL) {
+										$all_cat_image = html::image(array('src'=>$default_map_all_icon));
+									}
+									?>
+									<span class="item-swatch" style="background-color: #<?php echo Kohana::config('settings.default_map_all'); ?>"><?php echo $all_cat_image ?></span>
 									<span class="item-title"><?php echo Kohana::lang('ui_main.all_categories'); ?></span>
 									<span class="item-count" id="all_report_count"><?php echo $report_stats->total_reports; ?></span>
 									</a>
@@ -151,6 +155,13 @@
 								</li>
 							</ul>
 						</div>
+						
+						<h3>
+							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('v', 'fl-verification');">
+								<?php echo Kohana::lang('ui_main.clear'); ?>
+							</a>
+							<a class="f-title" href="#"><?php echo Kohana::lang('ui_main.verification'); ?></a>
+						</h3>
 						<h3>
 							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('cff', 'fl-customFields');">
 								<?php echo Kohana::lang('ui_main.clear'); ?>
@@ -158,9 +169,8 @@
 							<a class="f-title" href="#"><?php echo Kohana::lang('ui_main.custom_fields'); ?></a>
 						</h3>
 						<div class="f-customFields-box">
-							<ul class="filter-list fl-customFields">
-								<?php echo $custom_forms_filter; ?>
-							</ul>
+							<?php echo $custom_forms_filter; ?>
+							
 						</div>
 						<?php
 							// Action, allows plugins to add custom filters
@@ -179,7 +189,7 @@
 				<!-- end #filters-box -->
 			</div>
       
-			<div style="display:none">
+			<div class="report-stats-container">
 				<?php
 					// Filter::report_stats - The block that contains reports list statistics
 					Event::run('ushahidi_filter.report_stats', $report_stats);
