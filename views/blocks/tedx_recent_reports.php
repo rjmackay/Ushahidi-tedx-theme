@@ -14,14 +14,9 @@
 			$incident_title = text::limit_chars($incident->incident_title, 40, '...', True);
 			$incident_date = $incident->incident_date;
 			$incident_date = date('j M Y', strtotime($incident->incident_date));
-			$incident_location = $incident->location->location_name;
 			$incident_category = $incident->category->current() ? $incident->category->current()->category_title : '';
-			$incident_video = false;
-			if (isset($incident_videos[$incident_id][0]))
-			{
-				$incident_video = $incident_videos[$incident_id][0]['thumb'] ? $incident_videos[$incident_id][0]['thumb'] : $video_embed->thumb($incident_videos[$incident_id][0]['link']);
-			}
-			if ($incident_video) {
+			if (isset($incident->media_thumb)) {
+				$incident_video = url::convert_uploaded_to_abs($incident->media_thumb);
 		?>
 		<div class="report <?php echo "col-".($i % 5); ?>">
 			<a href="<?php echo url::site() . 'reports/view/' . $incident_id; ?>"> 

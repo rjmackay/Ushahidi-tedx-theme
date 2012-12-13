@@ -29,7 +29,6 @@
 
 		// Create the popup
 		var anchor = {'size': new OpenLayers.Size(0,0), 'offset': new OpenLayers.Pixel(0, 0)};
-
 		var popup = new OpenLayers.Popup.Anchored("chicken", 
 			event.feature.geometry.getBounds().getCenterLonLat(),
 			new OpenLayers.Size(320,320),
@@ -37,7 +36,6 @@
 			anchor, false, this.onPopupClose);
 		popup.panMapIfOutOfView = true;
 		popup.autoSize = true;
-		//popup.maxSize = new OpenLayers.Size(320,320);
 		event.feature.popup = popup;
 		this._olMap.addPopup(popup);
 		popup.show();

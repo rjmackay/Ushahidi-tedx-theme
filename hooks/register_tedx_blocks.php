@@ -19,42 +19,15 @@ class tedx_reports_block {
 		
 		// Get Reports
 		$incidents = ORM::factory('incident')
+			->select('DISTINCT incident.id', 'incident.*','media.*')
 			->where('incident_active', '1')
+			->join('media', 'incident.id', 'incident_id')
+			->in('media_type', array(1,2))
+			->where('media_thumb IS NOT NULL')
+			->where('media_thumb != ""')
 			->limit('10')
 			->orderby('incident_date', 'desc')
 			->find_all();
-
-		$incident_video = array();
-		$incident_photo = array();
-		foreach($incidents as $incident) {
-			$incident_video[$incident->id] = array();
-			$incident_photo[$incident->id] = array();
-			
-			foreach($incident->media as $media)
-			{
-				// We only care about videos and photos
-				if ($media->media_type == 2)
-				{
-					$incident_video[$incident->id][] = array(
-						'link' => $media->media_link,
-						'medium' => url::convert_uploaded_to_abs($media->media_medium),
-						'thumb' => url::convert_uploaded_to_abs($media->media_thumb)
-					);
-				}
-				elseif ($media->media_type == 1)
-				{
-					$incident_photo[$incident->id][] = array(
-						'large' => url::convert_uploaded_to_abs($media->media_link),
-						'medium' => url::convert_uploaded_to_abs($media->media_medium),
-						'thumb' => url::convert_uploaded_to_abs($media->media_thumb)
-					);
-				}
-			}
-		}
-
-		// Video & photo links
-		$content->incident_videos = $incident_video;
-		$content->incident_photos = $incident_photo;
 
 		$content->incidents = $incidents;
 		$content->total_items = count($incidents);
