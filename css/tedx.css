@@ -617,9 +617,6 @@ div#main { padding:15px 10px; }
 
 
 .left-col h1.report-title {
-	float:left;
-	top:3px;
-	left:-0px;
 	border-bottom-style: none;
 	border-top: 3px solid #FF2B06;
 	margin-bottom: 10px;
